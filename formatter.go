@@ -7,6 +7,8 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
+var ErrPriceExceedsLimit = errors.New("error: price exceeds 1000000000000 yen")
+
 type unit interface {
 	constraints.Signed | constraints.Float
 }
@@ -14,7 +16,7 @@ type unit interface {
 func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) {
 	p := int(price)
 	if p >= 1000000000000 {
-		return "", errors.New("error: price exceeds 1000000000000 yen")
+		return "", ErrPriceExceedsLimit
 	}
 	str := strconv.Itoa(p)
 	var result []byte
