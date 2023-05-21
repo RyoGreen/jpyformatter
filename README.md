@@ -20,12 +20,12 @@ import (
 
 func main() {
 	var price = 1000
-	p, err := formatter.Format(price, true, true)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	fmt.Println(p)  // => ¥1,000-
+	p, _ := formatter.Format(price, true, true)
+	pWithPrefix, _ := formatter.Format(price, true, false)
+	pWithSuffix, _ := formatter.Format(price, false, true)
+	fmt.Println(p)           // => ¥1,000-
+	fmt.Println(pWithPrefix) // => ¥1,000
+	fmt.Println(pWithSuffix) // => 1,000-
 }
 
 ```
