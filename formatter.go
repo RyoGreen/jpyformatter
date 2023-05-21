@@ -15,7 +15,7 @@ type unit interface {
 
 func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) {
 	p := int(price)
-	if p >= 1000000000000 {
+	if p >= 10000000000000000 {
 		return "", ErrPriceExceedsLimit
 	}
 	str := strconv.Itoa(p)
