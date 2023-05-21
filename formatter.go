@@ -2,6 +2,7 @@ package formatter
 
 import (
 	"errors"
+	"math"
 	"strconv"
 
 	"golang.org/x/exp/constraints"
@@ -10,13 +11,18 @@ import (
 var ErrPriceExceedsLimit = errors.New("error: price exceeds 1000000000000 yen")
 
 type unit interface {
-	constraints.Signed | constraints.Float
+	constraints.Signed | constraints.Float | constraints.Unsigned
 }
 
 func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) {
 	p := int(price)
 	if p >= 10000000000000000 {
 		return "", ErrPriceExceedsLimit
+	}
+	var isNagative bool
+	if p < 0 {
+		isNagative = true
+		p = int(math.Abs(float64(p)))
 	}
 	str := strconv.Itoa(p)
 	var result []byte
@@ -27,6 +33,9 @@ func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) 
 		}
 		result = append([]byte{str[i]}, result...)
 		count++
+	}
+	if isNagative {
+		result = append([]byte{45}, result...)
 	}
 	if prefixEnabled {
 		result = append([]byte{0xC2, 0xA5}, result...)
