@@ -8,7 +8,9 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-var ErrPriceExceedsLimit = errors.New("error: price exceeds 1000000000000 yen")
+var ErrPriceExceedsLimit = errors.New("error: price exceeds 100,000,000,000,000 yen")
+
+const limitPrice = 100000000000000
 
 type unit interface {
 	constraints.Signed | constraints.Float | constraints.Unsigned
@@ -16,7 +18,7 @@ type unit interface {
 
 func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) {
 	p := int(price)
-	if p >= 10000000000000000 {
+	if p >= limitPrice {
 		return "", ErrPriceExceedsLimit
 	}
 	var isNagative bool
