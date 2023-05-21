@@ -36,5 +36,4 @@ func main() {
 - uint uint8 uint16 uint32 uint64 uintptr
 - float32 float64
 
-> **Warning**
-> Price must be less than 100,000,000,000,000
+> **Warning** Price must be less than 100,000,000,000,000
