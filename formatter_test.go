@@ -15,18 +15,33 @@ func TestFormatInt(t *testing.T) {
 		expectedResult string
 		expectedError  error
 	}{
-		{100000, false, false, "100,000", nil},
+		{1, true, true, "¥1-", nil},
+		{10, true, true, "¥10-", nil},
+		{100, true, true, "¥100-", nil},
+		{1000, true, true, "¥1,000-", nil},
+		{10000, true, true, "¥10,000-", nil},
+		{100000, true, true, "¥100,000-", nil},
 		{1000000, true, true, "¥1,000,000-", nil},
-		{10000000000, true, false, "¥10,000,000,000", nil},
+		{10000000, true, true, "¥10,000,000-", nil},
+		{100000000, true, true, "¥100,000,000-", nil},
+		{1000000000, true, true, "¥1,000,000,000-", nil},
+		{10000000000, true, true, "¥10,000,000,000-", nil},
+		{100000000000, true, true, "¥100,000,000,000-", nil},
+		{1000000000000, true, true, "¥1,000,000,000,000-", nil},
+		{10000000000000, true, true, "¥10,000,000,000,000-", nil},
+		{100000000000000, true, true, "¥100,000,000,000,000-", nil},
+		{1000000000000000, true, true, "¥1,000,000,000,000,000-", nil},
+		{9999999999999999, true, true, "¥9,999,999,999,999,999-", nil},
 		{10000000000000000, true, true, "", formatter.ErrPriceExceedsLimit},
+		{100000, false, false, "100,000", nil},
+		{1000000, true, false, "¥1,000,000", nil},
+		{10000000000, true, false, "¥10,000,000,000", nil},
 	}
 
 	for _, test := range tests {
 		result, err := formatter.Format(test.price, test.prefixEnabled, test.suffixEnabled)
 		if result != test.expectedResult || err != test.expectedError {
-			fmt.Printf("Test failed. Price: %d, Prefix: %v, Suffix: %v\n", test.price, test.prefixEnabled, test.suffixEnabled)
-			fmt.Printf("Expected result: %s, Expected error: %v\n", test.expectedResult, test.expectedError)
-			fmt.Printf("Actual result: %s, Actual error: %v\n", result, err)
+			t.Errorf("Test failed. Price: %d, Expected resutlt : %s, Actucal result %s", test.price, test.expectedResult, result)
 		} else {
 			fmt.Println("Test passed.")
 		}
