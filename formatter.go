@@ -17,14 +17,15 @@ type unit interface {
 }
 
 func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) {
-	p := int(price)
-	if p >= limitPrice {
+	var p = int(price)
+	ap := math.Abs(float64(p))
+	if ap >= limitPrice {
 		return "", ErrPriceExceedsLimit
 	}
 	var isNagative bool
 	if p < 0 {
 		isNagative = true
-		p = int(math.Abs(float64(p)))
+		p = int(ap)
 	}
 	str := strconv.Itoa(p)
 	var result []byte
