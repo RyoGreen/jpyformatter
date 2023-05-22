@@ -8,7 +8,7 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-var ErrPriceExceedsLimit = errors.New("error: price exceeds 100,000,000,000,000 yen")
+var ErrPriceExceedsLimit = errors.New("error: price must be between 99,999,999,999,999 yen and -99,999,999,999,999")
 
 const limitPrice = 100000000000000
 
