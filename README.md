@@ -38,4 +38,4 @@ func main() {
 
 ## Note
 
-Price must be less than 100,000,000,000,000
+Price must be between 99,999,999,999,999 yen and -99,999,999,999,999 yen
