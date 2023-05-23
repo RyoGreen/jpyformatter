@@ -8,12 +8,12 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-var ErrPriceExceedsLimit = errors.New("error: price exceeds 100,000,000,000,000 yen")
+var ErrPriceExceedsLimit = errors.New("error: price must be between 99,999,999,999,999 yen and -99,999,999,999,999 yen")
 
 const limitPrice = 100000000000000
 
 type unit interface {
-	constraints.Signed | constraints.Float | constraints.Unsigned
+	constraints.Signed | constraints.Unsigned | ~float64
 }
 
 func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) {

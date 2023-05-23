@@ -34,8 +34,8 @@ func main() {
 
 - int int8 int16 int32 int64
 - uint uint8 uint16 uint32 uint64 uintptr
-- float32 float64
+- float64
 
 ## Note
 
-Price must be less than 100,000,000,000,000
+Price must be between 99,999,999,999,999 yen and -99,999,999,999,999 yen
