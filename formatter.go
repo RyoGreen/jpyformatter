@@ -13,7 +13,7 @@ var ErrPriceExceedsLimit = errors.New("error: price must be between 99,999,999,9
 const limitPrice = 100000000000000
 
 type unit interface {
-	constraints.Signed | constraints.Float | constraints.Unsigned
+	constraints.Signed | constraints.Unsigned | ~float64
 }
 
 func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) {
