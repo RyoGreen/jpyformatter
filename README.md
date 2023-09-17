@@ -30,10 +30,12 @@ func main() {
 	p = formatter.FormatX(price, true, true)
 	pWithPrefix = formatter.FormatX(price, true, false)
 	pWithSuffix = formatter.FormatX(price, false, true)
+	errorPrice = formatter.FormatX(100000000000000, false, false)
 
 	fmt.Println(p)           // => ¥1,000-
 	fmt.Println(pWithPrefix) // => ¥1,000
 	fmt.Println(pWithSuffix) // => 1,000-
+	fmt.Println(errorPrice) // => 0
 }
 
 ```
