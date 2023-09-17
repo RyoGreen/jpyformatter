@@ -38,3 +38,6 @@ func main() {
 ## Note
 
 Price must be between 99,999,999,999,999 yen and -99,999,999,999,999 yen
+
+## License
+MIT
