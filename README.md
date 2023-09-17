@@ -22,6 +22,15 @@ func main() {
 	p, _ := formatter.Format(price, true, true)
 	pWithPrefix, _ := formatter.Format(price, true, false)
 	pWithSuffix, _ := formatter.Format(price, false, true)
+
+	fmt.Println(p)           // => ¥1,000-
+	fmt.Println(pWithPrefix) // => ¥1,000
+	fmt.Println(pWithSuffix) // => 1,000-
+
+	p = formatter.FormatX(price, true, true)
+	pWithPrefix = formatter.FormatX(price, true, false)
+	pWithSuffix = formatter.FormatX(price, false, true)
+
 	fmt.Println(p)           // => ¥1,000-
 	fmt.Println(pWithPrefix) // => ¥1,000
 	fmt.Println(pWithSuffix) // => 1,000-
