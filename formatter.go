@@ -48,3 +48,43 @@ func Format[U unit](price U, prefixEnabled, suffixEnabled bool) (string, error) 
 	}
 	return string(result), nil
 }
+
+func FormatX[U unit](price U, prefixEnabled, suffixEnabled bool) string {
+	var p = int(price)
+	var result []byte
+	ap := math.Abs(float64(p))
+	if ap >= limitPrice {
+		result = []byte{'0'}
+		if prefixEnabled {
+			result = append([]byte{0xC2, 0xA5}, result...)
+		}
+		if suffixEnabled {
+			result = append(result, '-')
+		}
+		return string(result)
+	}
+	var isNagative bool
+	if p < 0 {
+		isNagative = true
+		p = int(ap)
+	}
+	str := strconv.Itoa(p)
+	count := 0
+	for i := len(str) - 1; i >= 0; i-- {
+		if count%3 == 0 && len(str) != count && count != 0 {
+			result = append([]byte{','}, result...)
+		}
+		result = append([]byte{str[i]}, result...)
+		count++
+	}
+	if isNagative {
+		result = append([]byte{45}, result...)
+	}
+	if prefixEnabled {
+		result = append([]byte{0xC2, 0xA5}, result...)
+	}
+	if suffixEnabled {
+		result = append(result, '-')
+	}
+	return string(result)
+}
